@@ -29,20 +29,32 @@ public class RandomPasswordGeneratorTest extends TestCase {
         super.tearDown();
     }
 
-    //@org.junit.Test
     public void testRandomPasswordGeneratorMessage()
     {
         System.out.println("In test RandomPasswordGeneratorMessage");
         assertEquals(message, "Random Password Generator");
     }
 
-    //@org.junit.Test
     public void testRandomPasswordGeneratorLength(){
         System.out.println("In test RandomPasswordGeneratorLength");
         RandomPasswordGenerator rpg = new RandomPasswordGenerator();
         assertEquals(8,rpg.generatePassword().length());
     }
 
+    public void testRandomPasswordGeneratorEncryption(){
+        System.out.println("In test RandomPasswordGeneratorEncryption");
+        RandomPasswordGenerator rpg = new RandomPasswordGenerator();
+        String pwd = rpg.generatePassword();
+        assertNotSame(rpg.encryptPassword(pwd), pwd);
+    }
+
+    public void testRandomPasswordGeneratorDecryption(){
+        System.out.println("In test RandomPasswordGeneratorDecryption");
+        RandomPasswordGenerator rpg = new RandomPasswordGenerator();
+        String pwd = rpg.generatePassword();
+        String encPwd = rpg.encryptPassword(pwd);
+        assertEquals(rpg.decryptPassword(encPwd), pwd);
+    }
 
     public static Test suite() {
         return new TestSuite(RandomPasswordGeneratorTest.class);
